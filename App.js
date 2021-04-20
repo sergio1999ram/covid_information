@@ -1,21 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { createStackNavigator  } from 'react-navigation-stack'
+import { createAppContainer } from 'react-navigation'
+import { default as Home} from './screens/HomeScreen'
+import { default as Second } from './screens/SecondScreen'
+import Icon from 'react-native-vector-icons/Ionicons'
+import React from 'react'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const HomeStackNavigator = createStackNavigator({
+  Home: {
+    screen: Home
+  }
+},{
+  defaultNavigationOptions: {
+    headerShown: false
+  }
+})
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const SecondStackNavigator = createStackNavigator({
+  Second: {
+      screen: Second
+  }
+}, {
+  defaultNavigationOptions: {
+    headerShown: false
+  }
+})
+
+const TabNavigator = createBottomTabNavigator({
+  Home: HomeStackNavigator,
+  Second: SecondStackNavigator
+}, {
+  defaultNavigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ tintColor }) => {
+      let { routeName } = navigation.state
+      let iconName
+
+      if( routeName === 'Home') {
+        iconName = 'home-sharp'
+      }else if( routeName == 'Second' ){
+        iconName = 'code'
+      }
+
+      return <Icon name={iconName} color={tintColor} size={20}/>
+    },
+  }),
+  tabBarOptions: {
+    style: {
+      backgroundColor: '#2b9ed9'
+    },
+    activeTintColor: 'black',
+    inactiveTintColor: '#b5babd'
+  }
+})
+
+export default createAppContainer(TabNavigator)
