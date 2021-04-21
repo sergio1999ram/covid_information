@@ -4,25 +4,27 @@ import React from 'react'
 
 const styles = StyleSheet.create({
     picker: {
-        marginTop: 30,
+        position: 'absolute',
+        top: 20,
         width: Dimensions.get("window").width - 30,
         height: 60,
     },
-    pickerItem: {
-        textAlign: 'center'
-    }
 })
-const CountryPicker = ({ countries, selectedCountry, setSelectedCountry }) => {
+const CountryPicker = ({ countries, selectedCountry, setSelectedCountry, setLoading }) => {
 
     return (
         countries.length > 0 ? 
         <Picker 
+            mode="dropdown"
             selectedValue={selectedCountry}
-            onValueChange={(itemValue, itemIndex) => setSelectedCountry(itemValue)}
+            onValueChange={(itemValue, itemIndex) => {
+                setLoading(true)
+                setSelectedCountry(itemValue)
+            }}
             style={styles.picker}
         >
     {
-        countries.map((country) => country.countryInfo.iso3 === null || country.countryInfo.iso2 === null ? null : <Picker.Item label={country.country} value={country.countryInfo.iso2} key={country.countryInfo.iso3 !== null ? country.countryInfo.iso3 : country.countryInfo.iso2} />)
+        countries.map((country) => <Picker.Item label={country.country} value={country.countryInfo.iso2} key={country.countryInfo.iso3 !== null ? country.countryInfo.iso3 : country.countryInfo.iso2} />)
     }
     </Picker> : null
     )

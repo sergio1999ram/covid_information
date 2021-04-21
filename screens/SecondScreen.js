@@ -20,4 +20,10 @@ const SecondScreen = () => {
     )
 }
 
+SecondScreen.navigationOptions = () => {
+    return {
+        title: 'Vaccines',
+        headerShown: false
+    }
+}
 export default SecondScreen

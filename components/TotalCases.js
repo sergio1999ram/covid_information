@@ -1,43 +1,42 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-
+import CountryPicker from './CountryPicker'
 
 const styles = StyleSheet.create({
     container: {
         width: 160,
         alignItems: 'flex-start',
-        borderRadius: 15,
-        backgroundColor: '#d5d5d5',
-        
+        borderRadius: 10,
+        backgroundColor: '#fdc4c4'
     },
     data: {
-        color: '#7d7d7d',
+        color: '#f54040',
         fontWeight: '700',
-        fontSize: 18,
-        marginBottom: 5
+        fontSize: 18, 
+        marginBottom: 5,
     },
     percentage: {
-        color: '#7d7d7d',
+        color: '#f54040',
         fontWeight: '700',
-        fontSize: 14,
-        marginTop: 5
+        fontSize: 14, 
+        marginTop: 5,
     },
     dataContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
         width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
         paddingVertical: 20
     },
     title: {
         paddingTop: 12,
         paddingLeft: 12,
-        color: '#7d7d7d',
+        color: '#f54040',
         fontWeight: '500',
         fontSize: 16
     }
 })
 
-const DeathCases = ({ country, navigation }) => {
+const TotalCases = ({ country, navigation }) => {
     function simplifyNumber(number, decPlaces) {
 
         decPlaces = Math.pow(10,decPlaces);
@@ -72,17 +71,17 @@ const DeathCases = ({ country, navigation }) => {
         return number;
     }
 
-    return (
-        <TouchableOpacity onPress={() => navigation.navigate('TotalDeathsScreen')}>
+    return(
+        <TouchableOpacity onPress={() => navigation.navigate("TotalCasesScreen")}>
             <View style={styles.container}>
-                <Text style={styles.title}> Deaths </Text>
-                <View style={{paddingVertical: 20, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
-                    <Text style={styles.data}> { simplifyNumber(country.deaths, 2)} </Text>
-                    <Text style={styles.percentage}> { Number(Math.round(((country.deaths / country.cases) * 100)+'e'+3)+'e-'+3 )}% of total cases </Text>
+                <Text style={styles.title}> Total cases </Text>
+                <View style={styles.dataContainer}>
+                    <Text style={styles.data}> { simplifyNumber(country.cases, 2) } </Text>
+                    <Text style={styles.percentage}> { Number(Math.round(((country.cases / country.population) * 100)+'e'+2)+'e-'+2 )}% of population </Text>
                 </View>
             </View>
         </TouchableOpacity>
     )
 }
 
-export default DeathCases
+export default TotalCases
