@@ -75,7 +75,7 @@ const DeathCases = ({ country, navigation }) => {
     return (
         <TouchableOpacity onPress={() => navigation.navigate('TotalDeathsScreen')}>
             <View style={styles.container}>
-                <Text style={styles.title}> Deaths </Text>
+                <Text style={styles.title}> Death Cases </Text>
                 <View style={{paddingVertical: 20, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
                     <Text style={styles.data}> { simplifyNumber(country.deaths, 2)} </Text>
                     <Text style={styles.percentage}> { Number(Math.round(((country.deaths / country.cases) * 100)+'e'+3)+'e-'+3 )}% of total cases </Text>

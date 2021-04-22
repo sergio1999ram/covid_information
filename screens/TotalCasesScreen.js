@@ -2,19 +2,23 @@ import React from "react"
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons'
 
+import TopMenu from '../components/TopMenu'
+import DataVisualization from '../components/DataVisualization'
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
     }
 })
-
+//Get all COVID-19 global data
+//https://disease.sh/v3/covid-19/historical/all?lastdays=all
 const TotalCasesScreen = ({ navigation }) => {
-
+    const [buttonPressed, setButtonPressed] = React.useState('historical')
     return (
         <View style={styles.container}>
-            <Text>Total cases screen</Text>
+            <TopMenu buttonPressed={buttonPressed} setButtonPressed={setButtonPressed}/>
+            <DataVisualization buttonPressed={buttonPressed} setButtonPressed={setButtonPressed}/>
         </View>
     )
 }

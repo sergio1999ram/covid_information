@@ -28,7 +28,7 @@ const Covid19StackNavigator = createStackNavigator({
     screen: TotalRecoveredScreen,
   }
 }, {
-
+  initialRouteName: 'Home'
 })
 
 Covid19StackNavigator.navigationOptions = ({ navigation }) => {
@@ -56,7 +56,7 @@ const TabNavigator = createBottomTabNavigator({
     screen: VaccineStackNavigator,
   }
 }, {
-  defaultNavigationOptions: ({ navigation }) => ({
+defaultNavigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ tintColor }) => {
       let { routeName } = navigation.state
       let iconName
@@ -74,18 +74,7 @@ const TabNavigator = createBottomTabNavigator({
     style: {
       backgroundColor: '#2b9ed9'
     },
-    activeTintColor: () => {
-      let tintColor
-      let { routeName } = navigation.state
-
-      if( routeName === 'COVID-19') {
-        tintColor = 'green'
-      }else if( routeName == 'Vaccine' ){
-        tintColor = 'red'
-      }
-      
-      return tintColor
-    },
+    activeTintColor: 'black',
     inactiveTintColor: '#b5babd'
   }
 })

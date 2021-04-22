@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     innerContainer: {
         marginTop: 10,
         width: '100%',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         flexDirection: 'row',
     },
     activityIndicator: {
@@ -30,8 +30,16 @@ const styles = StyleSheet.create({
 const HomeScreen = ({ navigation }) => {
     const [countries, setCountries] = React.useState([])
     const [selectedCountry, setSelectedCountry] = React.useState("af")
-    const [worldometersData, setWorldometersData] = React.useState([])
+
+    //Total data by country
+    const [totalDataByCountry, setTotalDataByCountry] = React.useState([])
+    
+    //Monthly data by country
+    const [monthlyDataByCountry, setMonthlyDataByCountry] = React.useState([])
+
     const [loading, setLoading] = React.useState(true)
+    
+
     const fetchCountries = async() => {
         const response = await fetch(`https://disease.sh/v3/covid-19/countries/`)
         const data = await response.json()
@@ -40,13 +48,16 @@ const HomeScreen = ({ navigation }) => {
         setCountries(data)
     }
 
-    const fetchInformation = async() => {
+    const fetchTotalDataByCountry = async() => {
         const response = await fetch(`https://disease.sh/v3/covid-19/countries/${selectedCountry}?strict=true`)
         const data = await response.json()
         setWorldometersData(data)
         setLoading(false)
     }
 
+    const fetchMonthlyDataByCountry = async () => {
+        const response = await fetch(`https://disease.sh/v3/covid-19/historical/all?lastdays=all`)
+    }
     React.useEffect(() => {
         setLoading(true)
         fetchCountries()
@@ -54,7 +65,8 @@ const HomeScreen = ({ navigation }) => {
 
     React.useEffect(() => {
         if( selectedCountry !== "" ){
-            fetchInformation()
+            fetchTotalDataByCountry()
+            fetchMonthlyDataByCountry()
         }
     }, [selectedCountry])
 
@@ -65,12 +77,12 @@ const HomeScreen = ({ navigation }) => {
             {        loading === false ?
                     <View style={{flex: 1, width: Dimensions.get("window").width - 30, marginTop: 80}}>
                         <View style={styles.innerContainer}>
-                            <TotalCases country={worldometersData} navigation={navigation}/>
-                            <DeathCases country={worldometersData} navigation={navigation}/>
+                            <TotalCases country={totalDataByCountry} navigation={navigation}/>
+                            <DeathCases country={totalDataByCountry} navigation={navigation}/>
                         </View>
                         <View style={styles.innerContainer}>
-                            <ActiveCases country={worldometersData} navigation={navigation}/>
-                            <RecoveredCases country={worldometersData} navigation={navigation}/>
+                            <ActiveCases country={totalDataByCountry} navigation={navigation}/>
+                            <RecoveredCases country={totalDataByCountry} navigation={navigation}/>
                         </View>
                         <View style={styles.innerContainer}>
                             <Population country={worldometersData.country} population={worldometersData.population} navigation={navigation}/>
