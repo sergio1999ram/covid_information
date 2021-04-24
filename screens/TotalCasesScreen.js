@@ -15,10 +15,11 @@ const styles = StyleSheet.create({
 //https://disease.sh/v3/covid-19/historical/all?lastdays=all
 const TotalCasesScreen = ({ navigation }) => {
     const [buttonPressed, setButtonPressed] = React.useState('historical')
+    const dailyData = navigation.getParam("dailyTotalData")
     return (
         <View style={styles.container}>
             <TopMenu buttonPressed={buttonPressed} setButtonPressed={setButtonPressed}/>
-            <DataVisualization buttonPressed={buttonPressed} setButtonPressed={setButtonPressed}/>
+            <DataVisualization buttonPressed={buttonPressed} dailyData={dailyData}/>
         </View>
     )
 }

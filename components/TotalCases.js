@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const TotalCases = ({ country, navigation }) => {
+const TotalCases = ({ country, navigation, dailyTotalData }) => {
     function simplifyNumber(number, decPlaces) {
 
         decPlaces = Math.pow(10,decPlaces);
@@ -70,9 +70,9 @@ const TotalCases = ({ country, navigation }) => {
         }
         return number;
     }
-
+  
     return(
-        <TouchableOpacity onPress={() => navigation.navigate("TotalCasesScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate("TotalCasesScreen", {dailyTotalData: dailyTotalData})}>
             <View style={styles.container}>
                 <Text style={styles.title}> Total cases </Text>
                 <View style={styles.dataContainer}>

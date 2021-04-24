@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     },
 })
 const CountryPicker = ({ countries, selectedCountry, setSelectedCountry, setLoading }) => {
-
     return (
         countries.length > 0 ? 
         <Picker 
@@ -24,7 +23,7 @@ const CountryPicker = ({ countries, selectedCountry, setSelectedCountry, setLoad
             style={styles.picker}
         >
     {
-        countries.map((country) => <Picker.Item label={country.country} value={country.countryInfo.iso2} key={country.countryInfo.iso3 !== null ? country.countryInfo.iso3 : country.countryInfo.iso2} />)
+        countries.map(country => <Picker.Item label={country.country} value={country.countryInfo.iso2} key={country.countryInfo.iso3 !== null ? country.countryInfo.iso3 : country.countryInfo.iso2} />)
     }
     </Picker> : null
     )
