@@ -1,6 +1,8 @@
 import React from "react"
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons'
+import TopMenu from '../components/TopMenu'
+import DataVisualization from '../components/DataVisualization'
 
 const styles = StyleSheet.create({
     container: {
@@ -11,10 +13,14 @@ const styles = StyleSheet.create({
 })
 
 const TotalDeathsScreen = ({ navigation }) => {
-
+    const [buttonPressed, setButtonPressed] = React.useState('historical')
+    const dailyData = navigation.getParam("dailyTotalData")
+    const type = navigation.getParam("type")
+    console.log(type)
     return (
         <View style={styles.container}>
-            <Text>Total death cases screen</Text>
+            <TopMenu buttonPressed={buttonPressed} setButtonPressed={setButtonPressed}/>
+            <DataVisualization buttonPressed={buttonPressed} dailyData={dailyData} type={type}/>
         </View>
     )
 }

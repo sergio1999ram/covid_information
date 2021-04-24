@@ -80,12 +80,12 @@ const HomeScreen = ({ navigation }) => {
             {        loading === false ?
                     <View style={{flex: 1, width: Dimensions.get("window").width - 30, marginTop: 80}}>
                         <View style={styles.innerContainer}>
-                            <TotalCases country={totalDataByCountry} navigation={navigation} dailyTotalData={dailyTotalData}/>
-                            <DeathCases country={totalDataByCountry} navigation={navigation} />
+                            <TotalCases country={totalDataByCountry} navigation={navigation} dailyTotalData={dailyTotalData} type="total_cases" />
+                            <DeathCases country={totalDataByCountry} navigation={navigation} dailyTotalData={dailyTotalData} type="total_deaths" />
                         </View>
                         <View style={styles.innerContainer}>
                             <ActiveCases country={totalDataByCountry} navigation={navigation}/>
-                            <RecoveredCases country={totalDataByCountry} navigation={navigation}/>
+                            <RecoveredCases country={totalDataByCountry} navigation={navigation} dailyTotalData={dailyTotalData} type="total_recovered"/>
                         </View>
                         <View style={styles.innerContainer}>
                             <Population country={totalDataByCountry.country} population={totalDataByCountry.population} navigation={navigation}/>

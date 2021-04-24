@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const RecoveredCases = ({ country, navigation }) => {
+const RecoveredCases = ({ country, navigation, dailyTotalData, type }) => {
 
     function simplifyNumber(number, decPlaces) {
 
@@ -74,7 +74,7 @@ const RecoveredCases = ({ country, navigation }) => {
     }
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("TotalRecoveredScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate("TotalRecoveredScreen", {dailyTotalData: dailyTotalData, type: type})}>
             <View style={styles.container}>
                 <Text style={styles.title}> Recovered cases </Text>
                 <View style={styles.dataContainer}>

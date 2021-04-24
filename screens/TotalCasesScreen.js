@@ -16,10 +16,12 @@ const styles = StyleSheet.create({
 const TotalCasesScreen = ({ navigation }) => {
     const [buttonPressed, setButtonPressed] = React.useState('historical')
     const dailyData = navigation.getParam("dailyTotalData")
+    const type = navigation.getParam("type")
+
     return (
         <View style={styles.container}>
             <TopMenu buttonPressed={buttonPressed} setButtonPressed={setButtonPressed}/>
-            <DataVisualization buttonPressed={buttonPressed} dailyData={dailyData}/>
+            <DataVisualization buttonPressed={buttonPressed} dailyData={dailyData} type={type}/>
         </View>
     )
 }
