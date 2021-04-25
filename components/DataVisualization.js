@@ -1,14 +1,5 @@
 import React from "react"
-import { StyleSheet, Text, View, FlatList } from "react-native"
 import HistoricalView from './HistorcalView'
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    }
-})
 
 const DataVisualization = ({ buttonPressed, dailyData, type }) => {
     const [monthlyData, setMonthlyData] = React.useState([])
@@ -106,18 +97,12 @@ const DataVisualization = ({ buttonPressed, dailyData, type }) => {
         setMonthlyData(aux_array)
     }
 
-
     React.useEffect(() => {
         getMonthlyData()
     }, [buttonPressed])
 
     return(
-        
-        <View style={styles.container}>
-            {
-                monthlyData.length !== 0 ? <HistoricalView data={monthlyData}/> : null
-            }
-        </View>
+        monthlyData.length !== 0 ? <HistoricalView data={monthlyData}/> : null
     )
 }
 

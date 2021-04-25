@@ -1,18 +1,24 @@
 import React from 'react'
-import { View, StyleSheet, Text, FlatList } from 'react-native'
+import { View, StyleSheet, Text, FlatList, Dimensions } from 'react-native'
+import Chart from './Chart'
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 22,
+    },
+    preciseDataContainer: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
-    }
+        marginTop: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })
 const HistoricalView = ({ data }) => {
     const [totalMonthlyData, setTotalMonthlyData] = React.useState([])
     const [incrementMonth, setIncrementMonth] = React.useState([])
     const [loading, setLoading] = React.useState(true)
-
+    
+    const monthNames = ["J", "F", "M", "A", "M", "J1", "J2", "A", "S", "O", "N", "D"]
     const averageData = () => {
         let aux_array = [];
         let max_year = parseInt(data[data.length - 1].date.split("/")[2]);
@@ -33,37 +39,36 @@ const HistoricalView = ({ data }) => {
 
                 aux_array.push({
                     year: year,
-                    month: month,
+                    month: monthNames[month - 1],
                     total_days: total_days,
                     data: total_month,
                 })
             }
         }
         setTotalMonthlyData(aux_array)
-    }
-    
+    }  
     const calculateIncrement = () => {
         if( totalMonthlyData.length > 0 ){ 
             let array = totalMonthlyData;
             let aux_array = [];
             let aux_data = totalMonthlyData[0];
-            array.push({
-                start_date: `${aux_data.month}-${aux_data.year}`,
-                end_date: `${aux_data.month}-${aux_data.year}`,
+            aux_array.push({
+                month: aux_data.month,
+                year: aux_data.year,
                 total_days: aux_data.total_days,
                 monthly_data: aux_data.data,
-                average: aux_data.data / aux_data.total_days   ,
+                average: aux_data.data / aux_data.total_days,
                 increment: aux_data.data      
             });
 
-            for( let i = 1; i <= array.length - 2; i++ ){
+            for( let i = 1; i <= array.length - 1; i++ ){
                 aux_array.push({
-                    start_date: `${aux_data.month}-${aux_data.year}`,
-                    end_date: `${array[i].month}-${array[i].year}`,
+                    month: array[i].month,         
+                    year: array[i].year,          
                     total_days: array[i].total_days,
                     monthly_data: array[i].data,
-                    average: array[i].data / array[i].total_days,
-                    increment: array[i].data - aux_data.data
+                    average: array[i].data / array[i].total_days, //IMPORTANT DATA
+                    increment: array[i].data - aux_data.data //IMPORTANT DATA
                 });
 
                 aux_data = array[i];
@@ -74,31 +79,25 @@ const HistoricalView = ({ data }) => {
             setLoading(false)
         }
     }
+
     React.useEffect(() => {
        if( loading === true ){
         averageData()
         calculateIncrement()
+
        }
     })
-
 
     return(
         <View style={styles.container}>
             {
-                totalMonthlyData.length > 0 ? 
-                <FlatList
-                    data={incrementMonth}
-                    renderItem={({item}) => (
-                        <View style={{paddingBottom: 10, borderBottomWidth: 2, borderBottomColor: '#ccc'}}> 
-                            <Text>Start Date | End Date: {item.start_date} | {item.end_date} </Text>
-                            <Text>Monthly Data: {item.monthly_data}</Text>
-                            <Text>Total Days: {item.total_days}</Text>
-                            <Text>Average cases: {item.average}</Text>
-                            <Text>Increment: {item.increment}</Text>
-                        </View>)} 
-                    keyExtractor={(item) => `${item.start_date}/${item.end_date}`}
-                /> : null
+                incrementMonth.length > 0 ? 
+                <Chart data={incrementMonth}/>
+                : null
             }
+            <View style={styles.preciseDataContainer}>
+                <Text> Precise data is going here! </Text>
+            </View>
         </View>
     )
 }

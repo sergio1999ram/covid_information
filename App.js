@@ -39,23 +39,46 @@ Covid19StackNavigator.navigationOptions = ({ navigation }) => {
     tabBarVisible = false
   }
   return {
-    tabBarVisible
+    tabBarVisible,
   }
 }
 const VaccineStackNavigator = createStackNavigator({
   Second: {
       screen: Second,
   }
-}, {})
+}, {
+  initialRouteName: 'Second',
+})
 
 const TabNavigator = createBottomTabNavigator({
   'COVID-19': {
     screen: Covid19StackNavigator,
+    navigationOptions: {
+      tabBarOptions: {
+        activeTintColor: 'green',
+        activeBackgroundColor: 'yellow',
+        inactiveBackgroundColor: 'white',
+        labelStyle: {
+          color:'black',
+        }
+      },
+    }
   },
   'Vaccine': {
     screen: VaccineStackNavigator,
+    navigationOptions: {
+      tabBarOptions: {
+        activeTintColor: 'blue',
+        activeBackgroundColor: '#2b9ed9',
+        inactiveBackgroundColor: 'red',
+        labelStyle: {
+          color: 'black'
+        }
+      },
+    }
   }
 }, {
+  initialRouteName: 'COVID-19',
 defaultNavigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ tintColor }) => {
       let { routeName } = navigation.state
@@ -70,13 +93,12 @@ defaultNavigationOptions: ({ navigation }) => ({
       return <Icon name={iconName} color={tintColor} size={20}/>
     },
   }),
-  tabBarOptions: {
-    style: {
-      backgroundColor: '#2b9ed9'
-    },
-    activeTintColor: 'black',
-    inactiveTintColor: '#b5babd'
-  }
+  // tabBarOptions: {
+  //   style: {
+  //     backgroundColor: '#2b9ed9'
+  //   },
+  //   inactiveTintColor: '#b5babd'
+  // },
 })
 
 export default createAppContainer(TabNavigator)
