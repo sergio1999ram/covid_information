@@ -55,13 +55,16 @@ const TabNavigator = createBottomTabNavigator({
     screen: Covid19StackNavigator,
     navigationOptions: {
       tabBarOptions: {
-        activeTintColor: 'green',
-        activeBackgroundColor: 'yellow',
+        activeTintColor: '#1eea47',
+        activeBackgroundColor: '#065916',
         inactiveBackgroundColor: 'white',
         labelStyle: {
           color:'black',
         }
       },
+      tabBarIcon: ({ tintColor }) => {
+        return <Icon name='viruses' color={tintColor} size={25} />
+      }
     }
   },
   'Vaccine': {
@@ -70,35 +73,38 @@ const TabNavigator = createBottomTabNavigator({
       tabBarOptions: {
         activeTintColor: 'blue',
         activeBackgroundColor: '#2b9ed9',
-        inactiveBackgroundColor: 'red',
+        inactiveBackgroundColor: 'white',
         labelStyle: {
           color: 'black'
         }
       },
+      tabBarIcon: ({ tintColor }) => {
+        return <Icon name='hand-holding-medical' color={tintColor} size={25} />
+      }
     }
   }
 }, {
   initialRouteName: 'COVID-19',
-defaultNavigationOptions: ({ navigation }) => ({
-    tabBarIcon: ({ tintColor }) => {
-      let { routeName } = navigation.state
-      let iconName
+// defaultNavigationOptions: ({ navigation }) => ({
+//     tabBarIcon: ({ tintColor }) => {
+//       let { routeName } = navigation.state
+//       let iconName
 
-      if( routeName === 'COVID-19') {
-        iconName = 'viruses'
-      }else if( routeName == 'Vaccine' ){
-        iconName = 'hand-holding-medical'
-      }
+//       if( routeName === 'COVID-19') {
+//         iconName = 'viruses'
+//       }else if( routeName == 'Vaccine' ){
+//         iconName = 'hand-holding-medical'
+//       }
 
-      return <Icon name={iconName} color={tintColor} size={20}/>
-    },
-  }),
-  // tabBarOptions: {
-  //   style: {
-  //     backgroundColor: '#2b9ed9'
-  //   },
-  //   inactiveTintColor: '#b5babd'
-  // },
+//       return <Icon name={iconName} color={tintColor} size={20}/>
+//     },
+//   }),
+//   // tabBarOptions: {
+//   //   style: {
+//   //     backgroundColor: '#2b9ed9'
+//   //   },
+//   //   inactiveTintColor: '#b5babd'
+//   // },
 })
 
 export default createAppContainer(TabNavigator)

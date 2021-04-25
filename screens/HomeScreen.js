@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     activityIndicator: {
         justifyContent: 'center', 
         alignItems: 'center'
+    },
+    marginTop: {
+        marginTop: 22,
     }
 })
 
@@ -87,7 +90,7 @@ const HomeScreen = ({ navigation }) => {
                             <ActiveCases country={totalDataByCountry} navigation={navigation}/>
                             <RecoveredCases country={totalDataByCountry} navigation={navigation} dailyTotalData={dailyTotalData} type="total_recovered"/>
                         </View>
-                        <View style={styles.innerContainer}>
+                        <View style={[styles.innerContainer, styles.marginTop]}>
                             <Population country={totalDataByCountry.country} population={totalDataByCountry.population} navigation={navigation}/>
                         </View>                       
                     </View> : <ActivityIndicator size="large" animating={true} color="blue"/>

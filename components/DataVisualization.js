@@ -102,7 +102,8 @@ const DataVisualization = ({ buttonPressed, dailyData, type }) => {
     }, [buttonPressed])
 
     return(
-        monthlyData.length !== 0 ? <HistoricalView data={monthlyData}/> : null
+        monthlyData.length !== 0 ?
+        buttonPressed === 'historical' ? <HistoricalView data={monthlyData}/> : null : null
     )
 }
 
